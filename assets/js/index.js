@@ -1,21 +1,26 @@
-var getIssues = function() {
-    // format the github api url
-    var apiUrl = "https://api.github.com/search/issues"
+var issueBtn = document.getElementById("issueBtn");
 
-    // make a request to the url
-    fetch(apiUrl)
-    .then(function(response) {
-        // request was successful
-        if (response.ok) {
-            console.log(response.json());
-        } else {
-            alert('Error: No Issues Found');
-        }
+var getIssues = function () {
+  // format the github api url
+  var apiUrl =
+    "https://api.github.com/search/issues?q={query}{&page,per_page,sort,order}";
+
+  // make a request to the url
+  fetch(apiUrl)
+    .then(function (response) {
+      // request was successful
+      if (response.ok) {
+        response.json().then(function (data) {
+          console.log(data);
+        });
+      } else {
+        alert("Error: No Issues Found");
+      }
     })
-    .catch(function(error) {
-        // .catch() to handle network errors
-        alert("Unable to connect to GitHub");
+    .catch(function (error) {
+      // .catch() to handle network errors
+      alert("Unable to connect to GitHub");
     });
 };
 
-getIssues();
+issueBtn.addEventListener("click", getIssues);
