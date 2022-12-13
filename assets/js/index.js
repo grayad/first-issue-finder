@@ -1,4 +1,5 @@
 var issueBtn = document.getElementById("issueBtn");
+var issueDiv = document.getElementById("issueDiv");
 
 var getIssues = function () {
   // format the github api url
@@ -24,5 +25,3 @@ var getIssues = function () {
 };
 
 
-
-issueBtn.addEventListener("click", getIssues);
