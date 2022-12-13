@@ -12,7 +12,8 @@ var getIssues = function () {
       // request was successful
       if (response.ok) {
         response.json().then(function (data) {
-          console.log(data);
+          console.log(data.items);
+          displayIssues(data.items)
         });
       } else {
         alert("Error: No Issues Found");
@@ -24,4 +25,16 @@ var getIssues = function () {
     });
 };
 
+getIssues();
 
+var displayIssues = function(issues) {
+    for (i=0; i<issues.length; i++) {
+        var issueContainer = document.createElement('div');
+        issueContainer.className= 'issueContainer';
+        var title = document.createElement('h1');
+        title.innerHTML=issues[i].title;
+
+        issueContainer.appendChild(title);
+        issueDiv.appendChild(issueContainer);
+    }
+}
