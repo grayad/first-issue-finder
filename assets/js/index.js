@@ -23,4 +23,6 @@ var getIssues = function () {
     });
 };
 
+
+
 issueBtn.addEventListener("click", getIssues);
