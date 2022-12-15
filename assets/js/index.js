@@ -53,6 +53,11 @@ var displayIssues = function(issues) {
         assignees.className = 'card-text'
         assignees.innerHTML = '# of assignees: ' + issues[i].assignees.length;
 
+        // user
+        var user = document.createElement('p')
+        user.className = 'card-text'
+        user.innerHTML = 'User: ' + issues[i].user.login;
+
         // view issue button using url
         var url = document.createElement('a');
         url.setAttribute('href', issues[i].html_url)
@@ -72,6 +77,7 @@ var displayIssues = function(issues) {
 
         // append all elements to issueDiv
         body.appendChild(assignees);
+        body.appendChild(user)
         body.appendChild(url)
         body.appendChild(repoUrl)
         issueContainer.appendChild(title);
