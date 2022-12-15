@@ -53,16 +53,25 @@ var displayIssues = function(issues) {
 
             return daysSincePosted;
         }
+        const daysSincePosted = postDuration();
 
-        // create card with title header and date footer
+        // create card with title header
         var issueContainer = document.createElement('div');
         issueContainer.className= 'issueContainer card';
         var title = document.createElement('div');
         title.className= 'card-header';
         title.innerHTML=issues[i].title;
+
+        // date footer
         var date = document.createElement('div');
         date.className= 'card-footer text-muted';
-        date.innerHTML=postDuration() + ' days ago';
+
+        // conditional singular vs plural for date
+        if (daysSincePosted===1){
+            date.innerHTML=daysSincePosted + ' day ago'
+        } else {
+            date.innerHTML=daysSincePosted + ' days ago'
+        }
 
         // create card body
         var body= document.createElement('div');
