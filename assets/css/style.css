@@ -11,3 +11,9 @@
 button {
     margin: .5rem
 }
+
+@media screen and (max-width: 800px) {
+    .issueContainer {
+        width: 100%;
+    }
+}

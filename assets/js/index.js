@@ -57,7 +57,7 @@ var displayIssues = function(issues) {
 
         // create card with title header
         var issueContainer = document.createElement('div');
-        issueContainer.className= 'issueContainer card';
+        issueContainer.className= 'issueContainer card col-5';
         var title = document.createElement('div');
         title.className= 'card-header';
         title.innerHTML=issues[i].title;
