@@ -59,12 +59,12 @@ var displayIssues = function(issues) {
         var issueContainer = document.createElement('div');
         issueContainer.className= 'issueContainer card col-5';
         var title = document.createElement('div');
-        title.className= 'card-header';
+        title.className= 'card-header fw-semibold';
         title.innerHTML=issues[i].title;
 
         // date footer
         var date = document.createElement('div');
-        date.className= 'card-footer text-muted';
+        date.className= 'card-footer text-muted text-end';
 
         // conditional singular vs plural for date
         if (daysSincePosted===1){
@@ -98,6 +98,10 @@ var displayIssues = function(issues) {
         user.innerHTML = 'User: ';
         user.appendChild(userLink);
 
+        // buttons div to append buttons to
+        var btnDiv = document.createElement('div');
+        btnDiv.className = 'd-flex justify-content-center'
+
         // view issue button using url
         var url = document.createElement('a');
         url.setAttribute('href', issues[i].html_url)
@@ -116,9 +120,10 @@ var displayIssues = function(issues) {
 
         // append all elements to issueDiv
         body.appendChild(assignees);
-        body.appendChild(user)
-        body.appendChild(url)
-        body.appendChild(repoUrl)
+        body.appendChild(user);
+        body.appendChild(btnDiv)
+        btnDiv.appendChild(url)
+        btnDiv.appendChild(repoUrl)
         issueContainer.appendChild(title);
         issueContainer.appendChild(body);
         issueContainer.appendChild(date);
