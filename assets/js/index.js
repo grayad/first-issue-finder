@@ -12,7 +12,6 @@ var getIssues = function () {
       // request was successful
       if (response.ok) {
         response.json().then(function (data) {
-          console.log(data.items);
           displayIssues(data.items)
         });
       } else {
@@ -70,9 +69,16 @@ var displayIssues = function(issues) {
         body.className= 'card-body';
 
         // # of assignees
-        var assignees = document.createElement('p')
-        assignees.className = 'card-text'
-        assignees.innerHTML = '# of assignees: ' + issues[i].assignees.length;
+        var assignees = document.createElement('p');
+        assignees.className = 'card-text';
+        
+        if (issues[i].assignees.length === 0) {
+            assignees.className= 'text-success';
+            assignees.innerHTML = '# of assignees: ' + issues[i].assignees.length + ", could be YOU!";
+        } else {
+            assignees.className= 'text-dark';
+            assignees.innerHTML = '# of assignees: ' + issues[i].assignees.length
+        }
 
         // user
         var userLink = document.createElement('a');
@@ -98,7 +104,6 @@ var displayIssues = function(issues) {
         repoBtn.innerHTML = 'Visit Repo'
         repoBtn.className='btn btn-secondary'
         repoUrl.appendChild(repoBtn);
-        console.log(getRepoLink())
 
         // append all elements to issueDiv
         body.appendChild(assignees);
