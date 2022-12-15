@@ -29,19 +29,23 @@ getIssues();
 
 var displayIssues = function(issues) {
     for (i=0; i<issues.length; i++) {
+        // create card with title header
         var issueContainer = document.createElement('div');
         issueContainer.className= 'issueContainer card';
         var title = document.createElement('div');
         title.className= 'card-header';
         title.innerHTML=issues[i].title;
 
+        // create card body
         var body= document.createElement('div');
         body.className= 'card-body';
 
+        // # of assignees
         var assignees = document.createElement('p')
         assignees.className = 'card-text'
         assignees.innerHTML = '# of assignees: ' + issues[i].assignees.length;
 
+        // view issue button using url
         var url = document.createElement('a');
         url.setAttribute('href', issues[i].html_url)
         var viewBtn = document.createElement('button');
@@ -49,11 +53,11 @@ var displayIssues = function(issues) {
         viewBtn.className='btn btn-secondary'
         url.appendChild(viewBtn);
 
+        // append all elements to issueDiv
         body.appendChild(assignees);
         body.appendChild(url)
         issueContainer.appendChild(title);
         issueContainer.appendChild(body);
         issueDiv.appendChild(issueContainer);
-    
     }
 }
