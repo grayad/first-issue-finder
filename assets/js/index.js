@@ -29,6 +29,14 @@ getIssues();
 
 var displayIssues = function(issues) {
     for (i=0; i<issues.length; i++) {
+        // function to create link for repo using repo api url
+        var getRepoLink = function() {
+            var repoApiUrl = issues[i].repository_url;
+            repoApiUrl='https://github.com' + repoApiUrl.split("").splice(28).join("");
+
+            return repoApiUrl;
+        }
+
         // create card with title header
         var issueContainer = document.createElement('div');
         issueContainer.className= 'issueContainer card';
@@ -53,9 +61,19 @@ var displayIssues = function(issues) {
         viewBtn.className='btn btn-secondary'
         url.appendChild(viewBtn);
 
+        // view repo button using url
+        var repoUrl = document.createElement('a');
+        repoUrl.setAttribute('href', getRepoLink())
+        var repoBtn = document.createElement('button');
+        repoBtn.innerHTML = 'Visit Repo'
+        repoBtn.className='btn btn-secondary'
+        repoUrl.appendChild(repoBtn);
+        console.log(getRepoLink())
+
         // append all elements to issueDiv
         body.appendChild(assignees);
         body.appendChild(url)
+        body.appendChild(repoUrl)
         issueContainer.appendChild(title);
         issueContainer.appendChild(body);
         issueDiv.appendChild(issueContainer);
