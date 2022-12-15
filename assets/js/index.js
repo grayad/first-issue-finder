@@ -30,11 +30,22 @@ getIssues();
 var displayIssues = function(issues) {
     for (i=0; i<issues.length; i++) {
         var issueContainer = document.createElement('div');
-        issueContainer.className= 'issueContainer';
-        var title = document.createElement('h1');
+        issueContainer.className= 'issueContainer card';
+        var title = document.createElement('div');
+        title.className= 'card-header';
         title.innerHTML=issues[i].title;
 
+        var body= document.createElement('div');
+        body.className= 'card-body';
+
+        var assignees = document.createElement('p')
+        assignees.className = 'card-text'
+        assignees.innerHTML = '# of assignees: ' + issues[i].assignees.length
+
+        body.appendChild(assignees);
         issueContainer.appendChild(title);
+        issueContainer.appendChild(body);
         issueDiv.appendChild(issueContainer);
+    
     }
 }
