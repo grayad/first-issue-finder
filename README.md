@@ -4,6 +4,8 @@
 
 ## Project Description
   A website using the GitHub API to find current open issues labeled as a 'goodFirstIssue' and display relevant issue data. This site can help new developers interested in open source find their first issue to solve! 
+  
+  Visit the site here: https://grayad.github.io/first-issue-finder/
     
 ## Table of Contents
   - [Installation](#installation)
