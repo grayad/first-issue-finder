@@ -57,9 +57,13 @@ var displayIssues = function(issues) {
         assignees.innerHTML = '# of assignees: ' + issues[i].assignees.length;
 
         // user
+        var userLink = document.createElement('a');
+        userLink.setAttribute('href', issues[i].user.html_url);
+        userLink.innerHTML = issues[i].user.login;
         var user = document.createElement('p')
         user.className = 'card-text'
-        user.innerHTML = 'User: ' + issues[i].user.login;
+        user.innerHTML = 'User: ';
+        user.appendChild(userLink);
 
         // view issue button using url
         var url = document.createElement('a');
