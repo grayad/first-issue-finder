@@ -37,12 +37,15 @@ var displayIssues = function(issues) {
             return repoApiUrl;
         }
 
-        // create card with title header
+        // create card with title header and date footer
         var issueContainer = document.createElement('div');
         issueContainer.className= 'issueContainer card';
         var title = document.createElement('div');
         title.className= 'card-header';
         title.innerHTML=issues[i].title;
+        var date = document.createElement('div');
+        date.className= 'card-footer text-muted';
+        date.innerHTML=issues[i].created_at;
 
         // create card body
         var body= document.createElement('div');
@@ -82,6 +85,7 @@ var displayIssues = function(issues) {
         body.appendChild(repoUrl)
         issueContainer.appendChild(title);
         issueContainer.appendChild(body);
+        issueContainer.appendChild(date);
         issueDiv.appendChild(issueContainer);
     }
 }
