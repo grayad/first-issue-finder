@@ -40,9 +40,17 @@ var displayIssues = function(issues) {
 
         var assignees = document.createElement('p')
         assignees.className = 'card-text'
-        assignees.innerHTML = '# of assignees: ' + issues[i].assignees.length
+        assignees.innerHTML = '# of assignees: ' + issues[i].assignees.length;
+
+        var url = document.createElement('a');
+        url.setAttribute('href', issues[i].html_url)
+        var viewBtn = document.createElement('button');
+        viewBtn.innerHTML = 'View Issue'
+        viewBtn.className='btn btn-secondary'
+        url.appendChild(viewBtn);
 
         body.appendChild(assignees);
+        body.appendChild(url)
         issueContainer.appendChild(title);
         issueContainer.appendChild(body);
         issueDiv.appendChild(issueContainer);
