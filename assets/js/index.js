@@ -37,6 +37,24 @@ var displayIssues = function(issues) {
             return repoApiUrl;
         }
 
+        // calculate days since issue posted
+        var postDuration = function() {
+            // issue date from API
+            var creationDate = issues[i].created_at;
+            // today's date
+            var today = new Date();
+
+            // format issue Date
+            var date = creationDate.split("").splice(0,10).join("") + " " + creationDate.split("").splice(11).join("");
+            var formatedDate = new Date(date);
+
+            // calculate how many days since the issue was posted
+            var differenceInTime = today.getTime()-formatedDate.getTime();
+            var daysSincePosted = Math.round(differenceInTime/(1000 * 3600 * 24))
+
+            return daysSincePosted;
+        }
+
         // create card with title header and date footer
         var issueContainer = document.createElement('div');
         issueContainer.className= 'issueContainer card';
@@ -45,7 +63,7 @@ var displayIssues = function(issues) {
         title.innerHTML=issues[i].title;
         var date = document.createElement('div');
         date.className= 'card-footer text-muted';
-        date.innerHTML=issues[i].created_at;
+        date.innerHTML=postDuration() + ' days ago';
 
         // create card body
         var body= document.createElement('div');
