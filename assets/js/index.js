@@ -3,7 +3,7 @@ var issueDiv = document.getElementById("issueDiv");
 
 // format the github api url
 var apiUrl =
-  "https://api.github.com/search/issues?q=label:goodfirstissue&state:open&sort=created";
+  "https://api.github.com/search/issues?q=state:open&sort=created&label:goodfirstissue";
 
 async function getIssues() {
   // make a request to the url
