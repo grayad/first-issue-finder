@@ -8,6 +8,10 @@
     margin: 2rem 1rem;
 }
 
+.info-card:hover {
+ opacity: .8;
+}
+
 button {
     margin: 1rem
 }
