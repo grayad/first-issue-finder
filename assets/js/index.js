@@ -74,6 +74,8 @@ var displayIssues = function (issues) {
     // conditional singular vs plural for date
     if (daysSincePosted === 1) {
       date.innerHTML = daysSincePosted + " day ago";
+    } else if (daysSincePosted === 0) {
+      date.innerHTML = "Today";
     } else {
       date.innerHTML = daysSincePosted + " days ago";
     }
