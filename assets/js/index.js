@@ -74,13 +74,23 @@ function displayIssues(issues) {
     // create card with title header
     var issueContainer = document.createElement("div");
     issueContainer.className = "issueContainer card col-5";
+    var cardHeader = document.createElement("div");
+    cardHeader.className = "card-header fw-semibold d-flex justify-content-between";
     var title = document.createElement("div");
-    title.className = "card-header fw-semibold";
     title.innerHTML = issues[i].title;
+    cardHeader.append(title)
+    var favBtn = document.createElement('i');
+    // will need to get from local storage to know which are selected and which are not
+    favBtn.className="fa-regular fa-star";
+    favBtn.style.fontSize = "1.5em"
+    cardHeader.append(favBtn);
 
-    // date footer
+    // footer with date and favorite button
+    var footer = document.createElement("div");
+    footer.className = "card-footer";
     var date = document.createElement("div");
-    date.className = "card-footer text-muted text-end";
+    date.className = "text-muted text-end"
+    footer.append(date);
 
     // conditional singular vs plural for date
     if (daysSincePosted === 1) {
@@ -143,9 +153,9 @@ function displayIssues(issues) {
     body.appendChild(btnDiv);
     btnDiv.appendChild(url);
     btnDiv.appendChild(repoUrl);
-    issueContainer.appendChild(title);
+    issueContainer.appendChild(cardHeader);
     issueContainer.appendChild(body);
-    issueContainer.appendChild(date);
+    issueContainer.appendChild(footer);
     issueDiv.appendChild(issueContainer);
   }
 };
@@ -164,3 +174,8 @@ var loadPage = function () {
 
 loadBtn.addEventListener("click", loadPage);
 // prevBtn.addEventListener("click", prevPage);
+
+// functionality to save issues to local storage
+// var saveIssue = function() {
+//   localStorage.setItem("", );
+// }
