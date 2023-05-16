@@ -1,11 +1,22 @@
+// html elements
 var issueBtn = document.getElementById("issueBtn");
 var issueDiv = document.getElementById("issueDiv");
+// var prevBtn = document.getElementById("prevBtn");
+var loadBtn = document.getElementById("loadBtn");
+
+var page = 1;
 
 // format the github api url
-var apiUrl =
-  "https://api.github.com/search/issues?q=state:open&sort=created&label:goodfirstissue";
+var formatUrl = function(page) {
+  const apiUrl = "https://api.github.com/search/issues?q=state:open&sort=created&label:goodfirstissue&page=" + page;
 
-async function getIssues() {
+  getIssues(apiUrl);
+}
+
+formatUrl(page);
+
+async function getIssues(apiUrl) {
+  console.log(page)
   // make a request to the url
   await fetch(apiUrl)
     .then(function (response) {
@@ -15,7 +26,8 @@ async function getIssues() {
           console.log(data);
           displayIssues(data.items);
         });
-      } else {
+      } 
+      else {
         alert("Error: No Issues Found");
       }
     })
@@ -25,9 +37,8 @@ async function getIssues() {
     });
 }
 
-getIssues();
 
-var displayIssues = function (issues) {
+function displayIssues(issues) {
   for (i = 0; i < issues.length; i++) {
     // function to create link for repo using repo api url
     var getRepoLink = function () {
@@ -138,3 +149,18 @@ var displayIssues = function (issues) {
     issueDiv.appendChild(issueContainer);
   }
 };
+
+var loadPage = function () {
+  page++;
+
+  formatUrl(page)
+}
+
+// var prevPage = function () {
+//   page =-1
+
+//   getIssues()
+// }
+
+loadBtn.addEventListener("click", loadPage);
+// prevBtn.addEventListener("click", prevPage);
