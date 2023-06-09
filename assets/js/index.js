@@ -7,16 +7,18 @@ var loadBtn = document.getElementById("loadBtn");
 var page = 1;
 
 // format the github api url
-var formatUrl = function(page) {
-  const apiUrl = "https://api.github.com/search/issues?q=state:open&sort=created&label:goodfirstissue&page=" + page;
+var formatUrl = function (page) {
+  const apiUrl =
+    "https://api.github.com/search/issues?q=state:open&sort=created&label:goodfirstissue&page=" +
+    page;
 
   getIssues(apiUrl);
-}
+};
 
 formatUrl(page);
 
 async function getIssues(apiUrl) {
-  console.log(page)
+  console.log(page);
   // make a request to the url
   await fetch(apiUrl)
     .then(function (response) {
@@ -26,8 +28,7 @@ async function getIssues(apiUrl) {
           console.log(data);
           displayIssues(data.items);
         });
-      } 
-      else {
+      } else {
         alert("Error: No Issues Found");
       }
     })
@@ -37,6 +38,31 @@ async function getIssues(apiUrl) {
     });
 }
 
+async function findIssue(owner, repoName, issue_number) {
+  var issueUrl =
+    "https://api.github.com/repos/" +
+    owner +
+    "/" +
+    repoName +
+    "/issues/" +
+    issue_number;
+  // make a request to the url
+  await fetch(issueUrl)
+    .then(function (response) {
+      // request was successful
+      if (response.ok) {
+        response.json().then(function (data) {
+          console.log(data);
+        });
+      } else {
+        alert("Error: No Issues Found");
+      }
+    })
+    .catch(function (error) {
+      // .catch() to handle network errors
+      alert("Unable to connect to GitHub");
+    });
+}
 
 function displayIssues(issues) {
   for (i = 0; i < issues.length; i++) {
@@ -75,21 +101,49 @@ function displayIssues(issues) {
     var issueContainer = document.createElement("div");
     issueContainer.className = "issueContainer card col-5";
     var cardHeader = document.createElement("div");
-    cardHeader.className = "card-header fw-semibold d-flex justify-content-between";
+    cardHeader.className =
+      "card-header fw-semibold d-flex justify-content-between";
+    cardHeader.setAttribute("number", issues[i].number);
+    cardHeader.setAttribute("repo", issues[i].repository_url);
     var title = document.createElement("div");
     title.innerHTML = issues[i].title;
-    cardHeader.append(title)
-    var favBtn = document.createElement('i');
+    cardHeader.append(title);
+    var favBtn = document.createElement("i");
     // will need to get from local storage to know which are selected and which are not
-    favBtn.className="fa-regular fa-star";
-    favBtn.style.fontSize = "1.5em"
+    favBtn.className = "fa-regular fa-star";
+    favBtn.style.fontSize = "1.5em";
     cardHeader.append(favBtn);
 
-    // footer with date and favorite button
+    // fav btn functionality
+    favBtn.addEventListener("click", addToFavorites);
+    var addToFavorites = function (event) {
+      var repoUrl = event.target.parentElement.getAttribute("repo");
+      var splitUrl = repoUrl.split("/");
+
+      var owner = splitUrl[4];
+      var repoName = splitUrl[5];
+      var issue_number = event.target.parentElement.getAttribute("number");
+
+      findIssue(owner, repoName, issue_number);
+      var newFavIssue = {
+        title: title.innerHTML,
+        numOfAssignees: assignees,
+        // userGithub: userLink,
+        // issueLink: issues[i].html_url,
+        // repoLink: repoUrl
+      };
+
+      var favoriteIssues = JSON.parse(localStorage.getItem("favorites")) || [];
+      favoriteIssues.push(newFavIssue);
+      console.log(favoriteIssues);
+      localStorage.setItem("favorites", JSON.stringify(favoriteIssues));
+    };
+
+    // footer with date
     var footer = document.createElement("div");
     footer.className = "card-footer";
     var date = document.createElement("div");
-    date.className = "text-muted text-end"
+    date.className = "text-muted text-end";
     footer.append(date);
 
     // conditional singular vs plural for date
@@ -158,13 +212,13 @@ function displayIssues(issues) {
     issueContainer.appendChild(footer);
     issueDiv.appendChild(issueContainer);
   }
-};
+}
 
 var loadPage = function () {
   page++;
 
-  formatUrl(page)
-}
+  formatUrl(page);
+};
 
 // var prevPage = function () {
 //   page =-1
