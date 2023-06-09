@@ -6,6 +6,8 @@ var loadBtn = document.getElementById("loadBtn");
 
 var page = 1;
 
+var issueData;
+
 // format the github api url
 var formatUrl = function (page) {
   const apiUrl =
@@ -17,6 +19,7 @@ var formatUrl = function (page) {
 
 formatUrl(page);
 
+// search all issues
 async function getIssues(apiUrl) {
   console.log(page);
   // make a request to the url
@@ -38,6 +41,7 @@ async function getIssues(apiUrl) {
     });
 }
 
+// get one issue
 async function findIssue(owner, repoName, issue_number) {
   var issueUrl =
     "https://api.github.com/repos/" +
@@ -53,6 +57,7 @@ async function findIssue(owner, repoName, issue_number) {
       if (response.ok) {
         response.json().then(function (data) {
           console.log(data);
+          issueData = data;
         });
       } else {
         alert("Error: No Issues Found");
@@ -125,16 +130,9 @@ function displayIssues(issues) {
       var issue_number = event.target.parentElement.getAttribute("number");
 
       findIssue(owner, repoName, issue_number);
-      var newFavIssue = {
-        title: title.innerHTML,
-        numOfAssignees: assignees,
-        // userGithub: userLink,
-        // issueLink: issues[i].html_url,
-        // repoLink: repoUrl
-      };
 
       var favoriteIssues = JSON.parse(localStorage.getItem("favorites")) || [];
-      favoriteIssues.push(newFavIssue);
+      favoriteIssues.push(issueData);
       console.log(favoriteIssues);
       localStorage.setItem("favorites", JSON.stringify(favoriteIssues));
     };
