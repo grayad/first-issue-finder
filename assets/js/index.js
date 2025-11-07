@@ -6,6 +6,7 @@ var loadBtn = document.getElementById("loadBtn");
 
 var page = 1;
 
+
 // format the github api url
 var formatUrl = function(page) {
   const apiUrl = "https://api.github.com/search/issues?q=state:open&sort=created&label:goodfirstissue&page=" + page;
