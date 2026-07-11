@@ -9,8 +9,8 @@ var page = 1;
 
 // format the github api url
 var formatUrl = function(page) {
-  const apiUrl = "https://api.github.com/search/issues?q=state:open+label:%22good+first+issue%22&sort=created&page=" + page;
- 
+  const apiUrl = "https://api.github.com/search/issues?q=state:open+label:%22good+first+issue%22&sort=created&page=" + page + "&per_page=100";
+
   getIssues(apiUrl);
 }
 
